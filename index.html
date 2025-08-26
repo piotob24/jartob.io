@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gry Edukacyjne</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+    color: #222;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #0a3d62;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+  }
+  .logo, .logo img {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-left: auto;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  nav a:hover, nav a:focus {
+    color: #ffcc00;
+    transform: scale(1.2);
+  }
+  main {
+    flex: 1;
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+    padding: 1rem;
+  }
+  .hidden { display: none; }
+
+  /* Menu gier */
+  .game-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .game-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+  }
+  .game-item img {
+    width: 100px;
+    height: 60px;
+    border-radius: 12px;
+    border: 2px solid #ccc;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .game-item img:hover, .game-item img:focus {
+    border-color: #0a3d62;
+    transform: scale(1.05);
+  }
+  .game-label {
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+    color: #222;
+  }
+
+  .game-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+  .game-content { width: 100%; }
+  #game-frame {
+    width: 100%;
+    height: 70vh;
+    border: 2px solid #0a3d62;
+    border-radius: 12px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 0.1rem;
+    background: #0a3d62;
+    color: white;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><img src="media/logo.png" alt="logo"></div>
+  <nav>
+    <a href="#" onclick="showSection('home')" aria-label="Strona główna">Strona główna</a>
+    <a href="#" onclick="showSection('games')" aria-label="Gry">Gry</a>
+  </nav>
+</header>
+
+<main>
+<section id="home">
+  <h2>Strona Główna</h2>
+  <p>Witaj!! 👋<br>
+     Cieszę się, że tu jesteś! Ta strona powstała, aby nauka i ćwiczenia były ciekawsze i prostsze. Znajdziesz tu różne gry interaktywne – od prostych zabaw po bardziej wymagające łamigłówki, które pomogą Ci w nauce i rozwijaniu umiejętności.<br><br>
+     Aby rozpocząć, wejdź w zakładkę <strong>„Gry”</strong> w menu u góry – tam czekają na Ciebie wszystkie dostępne zabawy.<br><br>
+     Życzę Ci miłej zabawy i udanej nauki! 🎮✨
+  </p>
+</section>
+
+<section id="games" class="hidden">
+  <div class="game-menu">
+    <!-- Pierwsza linia gier -->
+    <div class="game-row">
+      <div class="game-item" onclick="loadGame('gra1.html')" tabindex="0">
+        <img src="media/gra1.png" alt="Gra 1">
+        <span class="game-label">Spostrzegawczość</span>
+      </div>
+      <div class="game-item" onclick="loadGame('gra2.html')" tabindex="0">
+        <img src="media/gra2.png" alt="Gra 2">
+        <span class="game-label">Zgadnij</span>
+      </div>
+      <div class="game-item" onclick="loadGame('gra3.html')" tabindex="0">
+        <img src="media/gra3.png" alt="Gra 3">
+        <span class="game-label">Memory</span>
+      </div>
+      <div class="game-item" onclick="loadGame('gra4.html')" tabindex="0">
+        <img src="media/gra4.png" alt="Gra 4">
+        <span class="game-label">Puzzle</span>
+      </div>
+      <div class="game-item" onclick="loadGame('gra5.html')" tabindex="0">
+        <img src="media/gra5.png" alt="Gra 5">
+        <span class="game-label">Dopasuj</span>
+      </div>
+      <div class="game-item" onclick="loadGame('gra6.html')" tabindex="0">
+        <img src="media/gra6.png" alt="Gra 6">
+        <span class="game-label">Historia</span>
+      </div>
+    </div>
+
+    <!-- Druga linia gier -->
+    <div class="game-row">
+      <div class="game-item">
+        <a target="_blank" href="https://wordwall.net/pl/resource/95960215/spostrzeganie-stosunków-przestrzennych?ref=embed-image">
+          <img src="https://screens.cdn.wordwall.net/200/8bb1a7bff08041b79ecfc32d1ee55e29_0" width="200" height="150" />
+        </a>
+        <span class="game-label">Spostrzeganie przestrzenne</span>
+      </div>
+      <div class="game-item">
+        <a target="_blank" href="https://wordwall.net/pl/resource/95959675/orientuję-się-gdzie-znajduje-się-wskazana-rzecz?ref=embed-image">
+          <img src="https://screens.cdn.wordwall.net/200/8006e6a3118440e180dda32ed3eac5ab_45" width="200" height="150" />
+        </a>
+        <span class="game-label">Orientacja</span>
+      </div>
+      <div class="game-item">
+        <a target="_blank" href="https://wordwall.net/pl/resource/2320432/zabawa-kształtująca-orientację-w-przestrzeni-mieszkańcy-łąki?ref=embed-image">
+          <img src="https://screens.cdn.wordwall.net/200/e45a598c981740c98fdcdab022636280_0" width="200" height="150" />
+        </a>
+        <span class="game-label">"Mieszkańcy łąki"</span>
+      </div>
+      <div class="game-item">
+        <a target="_blank" href="https://www.canva.com/design/DAGwmpBlzio/F2jq8I50VxfatGtgjwkWeQ/view">
+          <img src="media/gra_canva.png" width="200" height="150" />
+        </a>
+        <span class="game-label">Interaktywna gra</span>
+      </div>
+      <div class="game-item">
+        <a target="_blank" href="https://wordwall.net/pl/resource/1810530/psychologia/3-emocje-i-uczucia-przyjemne-czy-nieprzyjemne?ref=embed-image">
+          <img src="https://screens.cdn.wordwall.net/200/17d06428787b4d9791f211ab71d7e8aa_0" width="200" height="150" />
+        </a>
+        <span class="game-label">EMOCJE i UCZUCIA</span>
+      </div>
+      <div class="game-item">
+        <a target="_blank" href="https://www.canva.com/design/DAGwz1_flps/VQRmDQb2i9DtX4_zTgaLbg/view?embed">
+          <img src="media/gra_canva2.png" width="200" height="150" />
+        </a>
+        <span class="game-label">Karty pracy</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-content">
+    <iframe id="game-frame" class="hidden"></iframe>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Jarosław Tobiszowski</p>
+</footer>
+
+<script>
+function showSection(sectionId) {
+  document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
+  document.getElementById(sectionId).classList.remove('hidden');
+}
+
+function loadGame(gameUrl) {
+  const frame = document.getElementById('game-frame');
+  frame.src = gameUrl;
+  frame.classList.remove('hidden');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Story Builder</title>
+<style>
+body { font-family: Arial; text-align: center; background:#eef; }
+.container { display:flex; justify-content:center; gap:20px; margin-top:20px; }
+.slot,.card { padding:20px; border:2px solid #333; min-width:100px; min-height:50px; margin:5px; background:#fff; cursor:grab; }
+.slot { background:#ddd; }
+</style>
+</head>
+<body>
+<h1>Gra 6 - Twórz historię</h1>
+<p>Przeciągnij elementy do odpowiednich miejsc, a potem kliknij Odtwórz!</p>
+<div class="container">
+  <div class="slot" id="who" ondrop="drop(event)" ondragover="allowDrop(event)">Kto?</div>
+  <div class="slot" id="where" ondrop="drop(event)" ondragover="allowDrop(event)">Gdzie?</div>
+  <div class="slot" id="what" ondrop="drop(event)" ondragover="allowDrop(event)">Co robi?</div>
+</div>
+<div class="container">
+  <div class="card" draggable="true" ondragstart="drag(event)">Kot</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">Pies</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">Dziecko</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">w domu</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">w szkole</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">śpi</div>
+  <div class="card" draggable="true" ondragstart="drag(event)">bawi się</div>
+</div>
+<button onclick="play()">▶️ Odtwórz historię</button>
+<p id="story"></p>
+<script>
+let dragged;
+function drag(ev){ dragged=ev.target; }
+function allowDrop(ev){ ev.preventDefault(); }
+function drop(ev){
+  ev.preventDefault();
+  ev.target.innerText=dragged.innerText;
+}
+function play(){
+  let who=document.getElementById("who").innerText;
+  let where=document.getElementById("where").innerText;
+  let what=document.getElementById("what").innerText;
+  let story=who+" "+where+" "+what;
+  document.getElementById("story").innerText=story;
+  let utter=new SpeechSynthesisUtterance(story);
+  speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

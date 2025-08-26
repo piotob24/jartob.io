@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gra 3 – Memory Zwierzęta</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f8ff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #0a3d62;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 120px);
+      grid-template-rows: repeat(4, 120px);
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      background: #0a3d62;
+      color: white;
+      font-size: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .card.flipped {
+      background: #ffcc00;
+      color: black;
+      transform: rotateY(180deg);
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gra 3 – Memory Zwierzęta 🐾</h1>
+  <div id="game" class="grid"></div>
+  <div id="status">Kliknij karty, aby znaleźć pary!</div>
+
+  <script>
+    const animals = [
+      {name: 'cow', icon: '🐄'},
+      {name: 'dog', icon: '🐕'},
+      {name: 'cat', icon: '🐈'},
+      {name: 'lion', icon: '🦁'},
+      {name: 'horse', icon: '🐎'},
+      {name: 'sheep', icon: '🐑'},
+      {name: 'duck', icon: '🦆'},
+      {name: 'elephant', icon: '🐘'}
+    ];
+
+    // 8 par → 16 kart
+    let cards = [...animals, ...animals];
+    cards = shuffle(cards);
+
+    const game = document.getElementById('game');
+    const status = document.getElementById('status');
+    let firstCard = null;
+    let lockBoard = false;
+    let matches = 0;
+
+    // Tworzenie kart
+    cards.forEach((animal, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.name = animal.name;
+      card.dataset.index = index;
+      card.textContent = "?"; // zakryta karta
+      card.addEventListener('click', flipCard);
+      game.appendChild(card);
+    });
+
+    function flipCard() {
+      if (lockBoard) return;
+      if (this.classList.contains('flipped') || this.style.visibility === "hidden") return;
+
+      this.classList.add('flipped');
+      this.textContent = cards[this.dataset.index].icon;
+
+      if (!firstCard) {
+        firstCard = this;
+      } else {
+        if (firstCard.dataset.name === this.dataset.name) {
+          // para znaleziona → znikają
+          lockBoard = true;
+          setTimeout(() => {
+            firstCard.style.visibility = "hidden";
+            this.style.visibility = "hidden";
+            firstCard = null;
+            lockBoard = false;
+            matches++;
+            if (matches === cards.length / 2) {
+              status.textContent = "🎉 Brawo! Wszystkie pary znalezione!";
+            }
+          }, 400);
+        } else {
+          // nietrafiona para → odwracają się
+          lockBoard = true;
+          setTimeout(() => {
+            firstCard.classList.remove('flipped');
+            firstCard.textContent = "?";
+            this.classList.remove('flipped');
+            this.textContent = "?";
+            firstCard = null;
+            lockBoard = false;
+          }, 1000);
+        }
+      }
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  </script>
+</body>
+</html>
